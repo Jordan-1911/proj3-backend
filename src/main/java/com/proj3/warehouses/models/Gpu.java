@@ -1,11 +1,20 @@
 package com.proj3.warehouses.models;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
+@DynamicUpdate  // these allow only updates in the columns that have updates to be changed
+@DynamicInsert  // insert only columns that have values
 @Table(name= "gpu_inventory")
 public class Gpu {
+	
+	
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
