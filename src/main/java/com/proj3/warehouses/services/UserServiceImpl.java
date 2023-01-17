@@ -33,16 +33,19 @@ public class UserServiceImpl implements UserService {
 				User user = userRepository.findByEmailId(requestMap.get("email"));
 				if (Objects.isNull(user)) {
 					userRepository.save(getUserFromMap(requestMap));  // persist data into database
-					return new ResponseEntity<String>("{\"message\":\"Uh-oh try again\"}", HttpStatus.CREATED);
-					} else {
-						return new ResponseEntity<String>("{\"message\":\"Uh-oh try again\"}", HttpStatus.BAD_REQUEST);
-					}
+					return new ResponseEntity<String>("{\"message\":\"Created\"}", HttpStatus.CREATED);
 				} else {
-					return new ResponseEntity<String>("{\"message\":\"Uh-oh try again\"}", HttpStatus.BAD_REQUEST);
+					System.out.println("Email already exists");
+					return new ResponseEntity<String>("{\"message\":\"Email already exists\"}", HttpStatus.BAD_REQUEST);
+				}
+			} else {
+				System.out.println("inside bad request");
+				return new ResponseEntity<String>("{\"message\":\"Uh-oh try again\"}", HttpStatus.BAD_REQUEST);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Last else statement");
 		return new ResponseEntity<String>("{\"message\":\"Uh-oh try again\"}", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
